@@ -1,0 +1,60 @@
+// Not complete and buggy
+
+#include <iostream>
+using namespace std;
+
+// buyCoffee asks for total number of cups of coffee the user wants
+int buyCoffee()
+{
+    int cupsCoffee;
+    // while cupsCoffee is less than 0 or is not integer, ask for an integer value again
+    do {
+    cout << "How many cups of coffee do you want to buy?" << endl;
+    cout << "Your input must be an integer." << endl;
+    cin >> cupsCoffee;
+    }
+    while (cupsCoffee < 0);
+    return cupsCoffee;
+};
+
+int sizeOfCoffeeCups[](int totalCups)
+{
+    int numOfSizesOfCoffee[3];
+    for (int i = 0; i < totalCups; i++)
+    {
+        int coffeeSize = 0;
+        do {
+        cout << "For coffee cup number " << i+1 << ", what size of coffee would you like to buy?" << endl;
+        cout << "For small, enter 1; for medium, enter 2; four large, enter 3";
+        cin >> coffeeSize
+        }
+        while (coffeeSize < 1 || coffeeSize > 3);
+        numOfSizesOfCoffee[coffeeSize - 1]++;
+    }
+    return numOfSizesOfCoffee;
+}
+
+int main()
+{
+    cout << "This program calculates the cost of buying coffee." << endl;
+    cout << "You will be asked for how many cups of coffee you want" << endl;
+    cout << "and what sizes of coffee you want. The total price will then be given." << endl;
+    int cupsCoffee = buyCoffee();
+    if (cupsCoffee <= 0)
+    {
+        cout << "You bought no cups of coffee. Have a nice day!";
+        return 0;
+    };
+    int numOfDiffSizesCoffee[] = sizeOfCoffeeCups(cupsCoffee);
+    for (int i = 0; i < 3; i++)
+    {
+        cout << "Number of coffee cups for size " << i + 1 << "is " numOfDiffSizesCoffee[i] << endl;
+    }
+    return 0;
+}
+
+
+
+
+
+
