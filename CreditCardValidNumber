@@ -8,7 +8,7 @@ bool validNum(string credCardNumber);
 void validNotify(bool isValid);
 
 int main(){
-    // Get a CC number from user and store it as a str in credCardNum
+  	// Get a CC number from user and store it as a str in credCardNum
 	string credCardNum = getNumber();
 	// Find out whether CC number is valid using the Luhn Check algorithm
 	bool isValid = validNum(credCardNum);
