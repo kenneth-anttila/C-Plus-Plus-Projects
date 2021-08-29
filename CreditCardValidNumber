@@ -1,0 +1,87 @@
+#include <iostream>
+#include <string>
+using namespace std;
+
+// Function prototypes
+string getNumber();
+bool validNum(string credCardNumber);
+void validNotify(bool isValid);
+
+int main(){
+    // Get a CC number from user and store it as a str in credCardNum
+	string credCardNum = getNumber();
+	// Find out whether CC number is valid using the Luhn Check algorithm
+	bool isValid = validNum(credCardNum);
+	// Notify the user whether the CC number is valid
+	validNotify(isValid);
+	return 0;
+}
+
+string getNumber(){
+	string number;
+	// Get CC number and check if it is the proper 
+	// digit length.
+	do {
+	cout << "What is your credit card number?" << endl;
+	cout << "It must be 16 digits." << endl;
+	cin >> number;
+	} while (number.size() != 16);
+	// Check if every number in entered CC num is a digit
+	bool validNum = true;
+	do {
+		for (char& c : number) {
+			if (int(c) < 48 || int(c) > 57){
+				cout << "You have entered an invalid credit card number." << endl;
+				cout << "Please enter one with 16 digits." << endl;
+				validNum = false;
+				cin >> number;
+				break;
+			}
+			validNum = true;
+		}
+	} while (validNum == false);
+	return number;
+}
+
+bool validNum(string credCardNumber){
+    // This programs checks to see if the CC num is valid using the Luhn
+    // Check algorithm
+    int oddTotal = 0;
+    int evenTotal = 0;
+    for (char& c : credCardNumber){
+        // Add all nums in odd indexes to oddTotal
+        if (int(c) % 2 == 1){
+            oddTotal += int(c);
+        } else { 
+            // Multiply each num in even index by 2 
+            int doubleVal = int(c) * 2;
+            // If the doubled value is >= 10, add its separated digits to 
+            // evenTotal; else, just add the doubled value
+            if (doubleVal >= 10){
+                evenTotal += doubleVal % 10 + 1;
+            } else {
+                evenTotal += doubleVal;
+            }
+        }
+    }
+    // Test to see if the added total is divisible by 10; if so, then it
+    // is a valid CC num
+    cout << evenTotal + oddTotal << endl;
+    if ((evenTotal + oddTotal) % 10 == 0){
+        return true;
+    } else {
+        return false;
+    }
+}
+
+void validNotify(bool isValid){
+    // Displays message to user about the validity of their credit card
+    if (isValid){
+        cout << "Your credit card is valid. You may purchase at will." << endl;
+    } else {
+        cout << "Your credit card is not valid. ";
+        cout << "Please use a valid credit card." << endl;
+    }
+    return;
+}
+
